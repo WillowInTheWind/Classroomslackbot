@@ -10,7 +10,6 @@ channel = os.environ['SLACK_CHANNEL']
 client = WebClient(token=os.environ.get("SLACK_BOT_TOKEN"))
 logger = logging.getLogger(__name__)
 
-
 def post_message_to_slack(text: str, blocks: dict[str, str]):
     message = text
     slack_url = "https://slack.com/api/chat.postMessage"
@@ -31,12 +30,13 @@ def post_message_to_slack(text: str, blocks: dict[str, str]):
 def post_message_to_slack_with_attachment(text: str, blocks: dict[str, str]):
     message = text
     slack_url = "https://slack.com/api/chat.postMessage"
-
+    attachment = [].json()
     try:
         # Call the chat.postMessage method using the WebClient
         result = client.chat_postMessage(
             channel=channel,
             text=text,
+            attachments=attachment,
             blocks=json.dumps(blocks) if blocks else None
         )
         logger.info(result)
