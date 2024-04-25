@@ -1,11 +1,45 @@
-import functools
+import json
+import os
+import requests
+import logging
+from slack_sdk import WebClient
+from slack_sdk.errors import SlackApiError
 
-from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for
-)
-from werkzeug.security import check_password_hash, generate_password_hash
+bot_token = os.environ['SLACK_BOT_TOKEN']
+channel = os.environ['SLACK_CHANNEL']
+client = WebClient(token=os.environ.get("SLACK_BOT_TOKEN"))
+logger = logging.getLogger(__name__)
 
 
-bp = Blueprint('auth', __name__, url_prefix='/auth')
+def post_message_to_slack(text: str, blocks: dict[str, str]):
+    message = text
+    slack_url = "https://slack.com/api/chat.postMessage"
+
+    try:
+        # Call the chat.postMessage method using the WebClient
+        result = client.chat_postMessage(
+            channel=channel,
+            text=text,
+            blocks=json.dumps(blocks) if blocks else None
+        )
+        logger.info(result)
+
+    except SlackApiError as e:
+        logger.error(f" Error posting message: {e}")
 
 
+def post_message_to_slack_with_attachment(text: str, blocks: dict[str, str]):
+    message = text
+    slack_url = "https://slack.com/api/chat.postMessage"
+
+    try:
+        # Call the chat.postMessage method using the WebClient
+        result = client.chat_postMessage(
+            channel=channel,
+            text=text,
+            blocks=json.dumps(blocks) if blocks else None
+        )
+        logger.info(result)
+
+    except SlackApiError as e:
+        logger.error(f" Error posting message: {e}")
