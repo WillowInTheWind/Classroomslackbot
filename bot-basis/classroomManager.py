@@ -28,6 +28,7 @@ def post_classroom_announcement(text: str):
     print("Posting classroom announcement...")
     # todo
 
+
 def get_classroom_announcement():
     creds = None
     # The file token.json stores the user's access and refresh tokens, and is
@@ -42,8 +43,9 @@ def get_classroom_announcement():
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
                 "credentials.json", SCOPES
+                ,  redirect_uri = "http://localhost:5000"
             )
-            creds = flow.run_local_server(port=0)
+            creds = flow.run_local_server(port=8080)
         # Save the credentials for the next run
         with open("token.json", "w") as token:
             token.write(creds.to_json())
@@ -65,4 +67,3 @@ def get_classroom_announcement():
 
     except HttpError as error:
         print(f"An error occurred: {error}")
-

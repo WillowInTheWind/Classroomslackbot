@@ -10,6 +10,7 @@ channel = os.environ['SLACK_CHANNEL']
 client = WebClient(token=os.environ.get("SLACK_BOT_TOKEN"))
 logger = logging.getLogger(__name__)
 
+
 def post_message_to_slack(text: str, blocks: dict[str, str]):
     message = text
     slack_url = "https://slack.com/api/chat.postMessage"

@@ -16,7 +16,7 @@ def postmessage(message):
     return 'Message posted!'
 
 @app.route('/class')
-def postmessage():
+def postannouncement():
     classroomManager.get_classroom_announcement( )
     return 'Message gotten!'
 
