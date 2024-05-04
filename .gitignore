@@ -1,2 +1,4 @@
 .env
 .idea
+/bot-basis/token.json
+/bot-basis/credentials.json

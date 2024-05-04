@@ -2,6 +2,7 @@ import os
 from flask import Flask
 import slackManager
 import classroomManager
+
 app = Flask(__name__, instance_relative_config=True)
 
 
@@ -11,16 +12,16 @@ def hello_world():
 
 
 @app.route('/post/<message>')
-def postmessage(message):
+def post_message(message):
     slackManager.post_message_to_slack(message, None)
     return 'Message posted!'
 
+
 @app.route('/class')
-def postannouncement():
-    classroomManager.get_classroom_announcement( )
+def post_announcement():
+    classroomManager.get_classroom_announcement()
     return 'Message gotten!'
 
 
 if __name__ == '__main__':
-    if app.debug:
-        app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
+    app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
